@@ -1,7 +1,6 @@
 package com.thoughtworks.refactor;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 public class PokerUtil {
     // Convert to numbers and sort them from largest to smallest
@@ -131,4 +130,33 @@ public class PokerUtil {
         return suits;
     }
 
+    static String intNumber(int i) {
+        String[] strNumber = {"2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"};
+        return strNumber[i - 2];
+    }
+
+    static int[] getDistinctDescendingHandsNumbers(int[] number) {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int i = 0; i < number.length; i++) {
+            if (map.get(number[i]) != null) {
+                map.put(number[i], map.get(number[i]) + 1);
+            } else {
+                map.put(number[i], 1);
+            }
+        }
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<Map.Entry<Integer, Integer>>();
+        list.addAll(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+            public int compare(Map.Entry<Integer, Integer> arg0, Map.Entry<Integer, Integer> arg1) {
+                return arg1.getValue().compareTo(arg0.getValue());
+            }
+        });
+        int[] arrayresult = new int[list.size()];
+        int i = 0;
+        for (Map.Entry<Integer, Integer> entry : list) {
+            arrayresult[i] = entry.getKey();
+            i++;
+        }
+        return arrayresult;
+    }
 }

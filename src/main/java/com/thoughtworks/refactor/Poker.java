@@ -24,9 +24,9 @@ public class Poker {
     private String compareSameCategory(Hands blackHandsObj, Hands whiteHandsObj) {
         String winResult;
         if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 0) { // Straight Flush
-            winResult = compareStraightFlush(blackHandsObj, whiteHandsObj);
+            winResult = SameCategoryComparator.compareStraightFlush(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 1) { // Four Of A Kind
-            winResult = compareFourOfAKind(blackHandsObj, whiteHandsObj);
+            winResult = SameCategoryComparator.compareFourOfAKind(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 2) { // Full House
             winResult = compareFullHouse(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 3) { // Flush
@@ -49,11 +49,11 @@ public class Poker {
         String winResult="";
         for (int i = 0; i < 5; i++) {
             if (blackHandsObj.getDescendingHandsNumbers()[i] < whiteHandsObj.getDescendingHandsNumbers()[i]) {
-                String sig = intNumber(whiteHandsObj.getDescendingHandsNumbers()[i]);
+                String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[i]);
                 winResult = "white wins - high card:" + sig;
                 break;
             } else if (blackHandsObj.getDescendingHandsNumbers()[i] > whiteHandsObj.getDescendingHandsNumbers()[i]) {
-                String sig = intNumber(blackHandsObj.getDescendingHandsNumbers()[i]);
+                String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[i]);
                 winResult = "black wins - high card:" + sig;
                 break;
             } else {
@@ -66,19 +66,19 @@ public class Poker {
     private String compareOnePair( Hands blackHandsObj, Hands whiteHandsObj) {
         String winResult="";
         if (getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-            String sig = intNumber(getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
+            String sig = PokerUtil.intNumber(getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
             winResult = "white wins - high card:" + sig;
         } else if (getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] > getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-            String sig = intNumber(getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
+            String sig = PokerUtil.intNumber(getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
             winResult = "black wins - high card:" + sig;
         } else {
             for (int i = 0; i < 3; i++) {
                 if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] < getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                    String sig = intNumber(getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
+                    String sig = PokerUtil.intNumber(getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
                     winResult = "white wins - high card:" + sig;
                     break;
                 } else if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] > getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                    String sig = intNumber(getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
+                    String sig = PokerUtil.intNumber(getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
                     winResult = "black wins - high card:" + sig;
                     break;
                 } else {
@@ -93,21 +93,21 @@ public class Poker {
         String winResult = "";
         for (int i = 0; i < 2; i++) {
             if (getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] < getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                String sig = intNumber(getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
+                String sig = PokerUtil.intNumber(getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
                 winResult = "white wins - high card:" + sig;
                 break;
             } else if (getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] > getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                String sig = intNumber(getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
+                String sig = PokerUtil.intNumber(getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
                 winResult = "black wins - high card:" + sig;
                 break;
             }
         }
         if (winResult == "") {
             if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-                String sig = intNumber(getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
+                String sig = PokerUtil.intNumber(getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
                 winResult = "white wins - high card:" + sig;
             } else if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] > getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-                String sig = intNumber(getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
+                String sig = PokerUtil.intNumber(getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
                 winResult = "black wins - high card:" + sig;
             } else {
                 winResult = "tie";
@@ -119,10 +119,10 @@ public class Poker {
     private String compareThreeOfAKind(Hands blackHandsObj, Hands whiteHandsObj) {
         String winResult;
         if (getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-            String sig = intNumber(getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
+            String sig = PokerUtil.intNumber(getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
             winResult = "white wins - high card:" + sig;
         } else {
-            String sig = intNumber(getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
+            String sig = PokerUtil.intNumber(getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
             winResult = "black wins - high card:" + sig;
         }
         return winResult;
@@ -131,10 +131,10 @@ public class Poker {
     private String compareStraight(Hands blackHandsObj, Hands whiteHandsObj) {
         String winResult;
         if (blackHandsObj.getDescendingHandsNumbers()[0] < whiteHandsObj.getDescendingHandsNumbers()[0]) {
-            String sig = intNumber(whiteHandsObj.getDescendingHandsNumbers()[0]);
+            String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[0]);
             winResult = "white wins - high card:" + sig;
         } else if (blackHandsObj.getDescendingHandsNumbers()[0] > whiteHandsObj.getDescendingHandsNumbers()[0]) {
-            String sig = intNumber(blackHandsObj.getDescendingHandsNumbers()[0]);
+            String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[0]);
             winResult = "black wins - high card:" + sig;
         } else {
             winResult = "tie";
@@ -146,11 +146,11 @@ public class Poker {
          String winResult = "";
         for (int i = 0; i < 5; i++) {
             if (blackHandsObj.getDescendingHandsNumbers()[i] < whiteHandsObj.getDescendingHandsNumbers()[i]) {
-                String sig = intNumber(whiteHandsObj.getDescendingHandsNumbers()[i]);
+                String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[i]);
                 winResult = "white wins - high card:" + sig;
                 break;
             } else if (blackHandsObj.getDescendingHandsNumbers()[i] > whiteHandsObj.getDescendingHandsNumbers()[i]) {
-                String sig = intNumber(blackHandsObj.getDescendingHandsNumbers()[i]);
+                String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[i]);
                 winResult = "black wins - high card:" + sig;
                 break;
             } else {
@@ -162,38 +162,12 @@ public class Poker {
 
     private String compareFullHouse(Hands blackHandsObj, Hands whiteHandsObj) {
         String winResult;
-        if (getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-            String sig = intNumber(getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
+        if (PokerUtil.getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < PokerUtil.getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
+            String sig = PokerUtil.intNumber(PokerUtil.getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
             winResult = "white wins - high card:" + sig;
         } else {
-            String sig = intNumber(getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
+            String sig = PokerUtil.intNumber(PokerUtil.getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
             winResult = "black wins - high card:" + sig;
-        }
-        return winResult;
-    }
-
-    private String compareFourOfAKind(Hands blackHandsObj, Hands whiteHandsObj) {
-        String winResult;
-        if (getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-            String sig = intNumber(getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
-            winResult = "white wins - high card:" + sig;
-        } else {
-            String sig = intNumber(getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
-            winResult = "black wins - high card:" + sig;
-        }
-        return winResult;
-    }
-
-    private String compareStraightFlush(Hands blackHandsObj, Hands whiteHandsObj) {
-        String winResult;
-        if (blackHandsObj.getDescendingHandsNumbers()[0] < whiteHandsObj.getDescendingHandsNumbers()[0]) {
-            String sig = intNumber(whiteHandsObj.getDescendingHandsNumbers()[0]);
-            winResult = "white wins - high card:" + sig;
-        } else if (blackHandsObj.getDescendingHandsNumbers()[0] > whiteHandsObj.getDescendingHandsNumbers()[0]) {
-            String sig = intNumber(blackHandsObj.getDescendingHandsNumbers()[0]);
-            winResult = "black wins - high card:" + sig;
-        } else {
-            winResult = "tie";
         }
         return winResult;
     }
@@ -204,36 +178,6 @@ public class Poker {
 
     private int[] getDescendingRepeatNumbers(int[] blackDescendingHandsNumbers) {
         return noOrRepeatNumber(blackDescendingHandsNumbers, 0);
-    }
-
-    private String intNumber(int i) {
-        String[] strNumber = {"2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"};
-        return strNumber[i - 2];
-    }
-
-    private int[] getDistinctDescendingHandsNumbers(int[] number) {
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for (int i = 0; i < number.length; i++) {
-            if (map.get(number[i]) != null) {
-                map.put(number[i], map.get(number[i]) + 1);
-            } else {
-                map.put(number[i], 1);
-            }
-        }
-        List<Map.Entry<Integer, Integer>> list = new ArrayList<Map.Entry<Integer, Integer>>();
-        list.addAll(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
-            public int compare(Map.Entry<Integer, Integer> arg0, Map.Entry<Integer, Integer> arg1) {
-                return arg1.getValue().compareTo(arg0.getValue());
-            }
-        });
-        int[] arrayresult = new int[list.size()];
-        int i = 0;
-        for (Map.Entry<Integer, Integer> entry : list) {
-            arrayresult[i] = entry.getKey();
-            i++;
-        }
-        return arrayresult;
     }
 
     // First get the number of occurrences of each element in the array,
