@@ -239,11 +239,11 @@ public class Poker {
         return reResult;
     }
 
-    private int judgeIndex(String strType) {
+    private int judgeIndex(String blackCardType) {
         int index = -1;
         String[] type = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
         for (int i = 0; i < 9; i++) {
-            if (type[i].equals(strType)) {
+            if (type[i].equals(blackCardType)) {
                 index = i;
             }
         }
@@ -251,10 +251,10 @@ public class Poker {
     }
 
     // judge the type of card
-    private String judgeType(String str) {
+    private String judgeType(String card) {
         String type = "";
-        String[] strArray = str.split("");
-        int[] number = sortedNumbers(str);
+        String[] strArray = card.split("");
+        int[] number = sortedNumbers(card);
         int i;
         String[] color = new String[5];
         for (i = 0; i < 5; i++) {
@@ -297,9 +297,9 @@ public class Poker {
     }
 
     // Convert to numbers and sort them from largest to smallest
-    private int[] sortedNumbers(String str) {
+    private int[] sortedNumbers(String blackCard) {
         int[] number = new int[5];
-        String[] strArray = str.split("");
+        String[] strArray = blackCard.split("");
         int i;
         for (i = 0; i < 5; i++) {
             String c = strArray[i * 3];
