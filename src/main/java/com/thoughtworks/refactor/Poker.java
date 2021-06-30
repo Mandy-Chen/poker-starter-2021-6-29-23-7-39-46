@@ -8,9 +8,9 @@ public class Poker {
 
     public String compareResult(String blackCard, String whiteCard) {
         String winResult = "";
-        String blackCardType = judgeCardType(blackCard);
-        String whiteCardType = judgeCardType(whiteCard);
-        String[] type = CARD_TYPES;
+        String blackCardType = judgeType(blackCard);
+        String whiteCardType = judgeType(whiteCard);
+        String[] cardTypes = CARD_TYPES;
         int[] blackNumber = strNumber(blackCard);
         int[] whiteNumber = strNumber(whiteCard);
         int blackIndex = judgeIndex(blackCardType);
@@ -22,9 +22,9 @@ public class Poker {
         int[] blackNoRepeat = noOrRepeatNumber(blackNumber, 1);
         int[] whiteNoRepeat = noOrRepeatNumber(whiteNumber, 1);
         if (blackIndex < whiteIndex) {
-            winResult = "black wins - " + type[blackIndex];
+            winResult = "black wins - " + cardTypes[blackIndex];
         } else if (blackIndex > whiteIndex) {
-            winResult = "white wins - " + type[whiteIndex];
+            winResult = "white wins - " + cardTypes[whiteIndex];
         } else {
             if (blackIndex == 0) { // Straight Flush
                 if (blackNumber[0] < whiteNumber[0]) {
@@ -251,7 +251,7 @@ public class Poker {
     }
 
     // judge the type of card
-    private String judgeCardType(String str) {
+    private String judgeType(String str) {
         String type = "";
         String[] strArray = str.split("");
         int[] number = strNumber(str);
