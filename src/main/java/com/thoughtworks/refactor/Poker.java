@@ -31,27 +31,7 @@ public class Poker {
             } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 6) { // Two Pair
                 winResult = compareTwoPair(blackHandsObj, whiteHandsObj);
             } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 7) { // One Pair
-                if (getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-                    String sig = intNumber(getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
-                    winResult = "white wins - high card:" + sig;
-                } else if (getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] > getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-                    String sig = intNumber(getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
-                    winResult = "black wins - high card:" + sig;
-                } else {
-                    for (int i = 0; i < 3; i++) {
-                        if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] < getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                            String sig = intNumber(getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
-                            winResult = "white wins - high card:" + sig;
-                            break;
-                        } else if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] > getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                            String sig = intNumber(getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
-                            winResult = "black wins - high card:" + sig;
-                            break;
-                        } else {
-                            winResult = "tie";
-                        }
-                    }
-                }
+                winResult = compareOnePair(blackHandsObj, whiteHandsObj);
             } else { // High Card
                 for (int i = 0; i < 5; i++) {
                     if (blackHandsObj.getDescendingHandsNumbers()[i] < whiteHandsObj.getDescendingHandsNumbers()[i]) {
@@ -65,6 +45,32 @@ public class Poker {
                     } else {
                         winResult = "tie";
                     }
+                }
+            }
+        }
+        return winResult;
+    }
+
+    private String compareOnePair( Hands blackHandsObj, Hands whiteHandsObj) {
+        String winResult="";
+        if (getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
+            String sig = intNumber(getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
+            winResult = "white wins - high card:" + sig;
+        } else if (getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] > getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
+            String sig = intNumber(getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
+            winResult = "black wins - high card:" + sig;
+        } else {
+            for (int i = 0; i < 3; i++) {
+                if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] < getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
+                    String sig = intNumber(getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
+                    winResult = "white wins - high card:" + sig;
+                    break;
+                } else if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] > getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
+                    String sig = intNumber(getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
+                    winResult = "black wins - high card:" + sig;
+                    break;
+                } else {
+                    winResult = "tie";
                 }
             }
         }
