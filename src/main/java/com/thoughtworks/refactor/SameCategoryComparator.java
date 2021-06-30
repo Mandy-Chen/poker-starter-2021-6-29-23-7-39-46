@@ -7,22 +7,12 @@ public class SameCategoryComparator {
     public static SameCategoryComparator getInstance(int ranking) {
         if (ranking == 0) {
             return  new StraightFlushComparator();
-        }else if (ranking == 2){
+        }else if (ranking == 1){
+            return new FourOfAKindComparator();
+        } else if (ranking == 2){
             return new FullHouseComparator();
         }
         return new SameCategoryComparator();
-    }
-
-    static String compareFourOfAKind(Hands blackHandsObj, Hands whiteHandsObj) {
-        String winResult;
-        if (PokerUtil.getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < PokerUtil.getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-            String sig = PokerUtil.intNumber(PokerUtil.getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
-            winResult = "white wins - high card:" + sig;
-        } else {
-            String sig = PokerUtil.intNumber(PokerUtil.getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
-            winResult = "black wins - high card:" + sig;
-        }
-        return winResult;
     }
 
     static String compareFlush(Hands blackHandsObj, Hands whiteHandsObj) {
@@ -144,9 +134,7 @@ public class SameCategoryComparator {
         String winResult;
         if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 0) { // Straight Flush
             winResult = compareStraightFlush(blackHandsObj, whiteHandsObj);
-        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 1) { // Four Of A Kind
-            winResult = compareFourOfAKind(blackHandsObj, whiteHandsObj);
-        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 3) { // Flush
+        }  else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 3) { // Flush
             winResult = compareFlush(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 4) { // Straight
             winResult = compareStraight(blackHandsObj, whiteHandsObj);
