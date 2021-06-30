@@ -8,8 +8,8 @@ public class Poker {
 
     public String compareResult(String blackHands, String whiteHands) {
         String winResult = "";
-        String blackCardType = judgeType(blackHands);
-        String whiteCardType = judgeType(whiteHands);
+        String blackCardType = judgeCategory(blackHands);
+        String whiteCardType = judgeCategory(whiteHands);
         String[] cardTypes = CATEGORYS;
         int[] blackCardDescendingNumbers = convertToDescendingNumbers(blackHands);
         int[] whiteCardDescendingNumbers = convertToDescendingNumbers(whiteHands);
@@ -259,7 +259,7 @@ public class Poker {
     }
 
     // judge the type of card
-    private String judgeType(String hands) {
+    private String judgeCategory(String hands) {
         String type = "";
         final int distinctNumbersSize = getDistinctNumbersSize(hands);
         final int distinctSuitsSize = getDistinctSuitsSize(hands);
