@@ -17,8 +17,8 @@ public class Poker {
         int whiteCardTypeIndex = judgeCardTypeIndex(whiteCardType);
         int[] blackArraySort = arraySort(blackCardDescendingNumbers);
         int[] whiteArraySort = arraySort(whiteCardDescendingNumbers);
-        int[] blackRepeat = noOrRepeatNumber(blackCardDescendingNumbers, 0);
-        int[] whiteRepeat = noOrRepeatNumber(whiteCardDescendingNumbers, 0);
+        int[] blackRepeat = getRepeatNumbers(blackCardDescendingNumbers);
+        int[] whiteRepeat = getRepeatNumbers(whiteCardDescendingNumbers);
         int[] blackNoRepeat = noOrRepeatNumber(blackCardDescendingNumbers, 1);
         int[] whiteNoRepeat = noOrRepeatNumber(whiteCardDescendingNumbers, 1);
         if (blackCardTypeIndex < whiteCardTypeIndex) {
@@ -146,6 +146,10 @@ public class Poker {
             }
         }
         return winResult;
+    }
+
+    private int[] getRepeatNumbers(int[] blackCardDescendingNumbers) {
+        return noOrRepeatNumber(blackCardDescendingNumbers, 0);
     }
 
     private String intNumber(int i) {
