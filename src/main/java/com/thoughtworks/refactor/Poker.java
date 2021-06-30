@@ -5,13 +5,13 @@ import java.util.*;
 public class Poker {
     public String compareResult(String blackCard, String whiteCard) {
         String winResult = "";
-        String blackType = judgeType(blackCard);
-        String whiteType = judgeType(whiteCard);
+        String blackCardType = judgeType(blackCard);
+        String whiteCardType = judgeType(whiteCard);
         String[] type = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
         int[] blackNumber = strNumber(blackCard);
         int[] whiteNumber = strNumber(whiteCard);
-        int blackIndex = judgeIndex(blackType);
-        int whiteIndex = judgeIndex(whiteType);
+        int blackIndex = judgeIndex(blackCardType);
+        int whiteIndex = judgeIndex(whiteCardType);
         int[] blackArraySort = arraySort(blackNumber);
         int[] whiteArraySort = arraySort(whiteNumber);
         int[] blackRepeat = noOrRepeatNumber(blackNumber, 0);
