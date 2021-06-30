@@ -261,33 +261,35 @@ public class Poker {
     // judge the type of card
     private String judgeCategory(String hands) {
         String type = "";
-        if (getDistinctNumbersSize(hands) == 5) {
-
-            if ((convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4) && (getDistinctSuitsSize(hands) == 1) && (getDistinctNumbersSize(hands) == 5)) { // five adjacent numbers with same color - Straight Flush
-                type = "StraightFlush";
-            } else if (convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4 && (getDistinctNumbersSize(hands) == 5)) { // five adjacent numbers - Straight
-                type = "Straight";
-            } else if (getDistinctSuitsSize(hands) == 1) { // same color - Flush
-                type = "Flush";
-            } else { // five non-adjacent numbers - High Card
-                type = "HighCard";
-            }
-        } else if (getDistinctNumbersSize(hands) == 4) { // two numbers are one pair, the other three are different - One Pair
+        if (isStraightFlush(hands)) { // five adjacent numbers with same color - Straight Flush
+            type = "StraightFlush";
+        } else if (isStraight(hands)) { // five adjacent numbers - Straight
+            type = "Straight";
+        } else if (getDistinctSuitsSize(hands) == 1 && getDistinctNumbersSize(hands) == 5) { // same color - Flush
+            type = "Flush";
+        } else if (getDistinctNumbersSize(hands) == 5){ // five non-adjacent numbers - High Card
+            type = "HighCard";
+        }
+        else if (getDistinctNumbersSize(hands) == 4) { // two numbers are one pair, the other three are different - One Pair
             type = "OnePair";
-        } else if (getDistinctNumbersSize(hands) == 3) {
-            if ((convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[2] == convertToDescendingNumbers(hands)[3]) || (convertToDescendingNumbers(hands)[1] == convertToDescendingNumbers(hands)[2] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]) || (convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4])) { // Two Pair
-                type = "TwoPair";
-            } else { // three same numbers, the other two are different - Three Of A Kind
-                type = "ThreeOfAKind";
-            }
-        } else {
-            if (convertToDescendingNumbers(hands)[0] != convertToDescendingNumbers(hands)[1] || convertToDescendingNumbers(hands)[3] != convertToDescendingNumbers(hands)[4]) { // three same numbers, the other two are a pair - Full House
-                type = "FourOfAKind";
-            } else { // four same numbers - Four Of A Kind
-                type = "FullHouse";
-            }
+        } else if (((convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[2] == convertToDescendingNumbers(hands)[3]) || (convertToDescendingNumbers(hands)[1] == convertToDescendingNumbers(hands)[2] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]) || (convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]))&& getDistinctNumbersSize(hands) == 3) { // Two Pair
+            type = "TwoPair";
+        } else if (getDistinctNumbersSize(hands) == 3){ // three same numbers, the other two are different - Three Of A Kind
+            type = "ThreeOfAKind";
+        } else if (getDistinctNumbersSize(hands) != 3&&(convertToDescendingNumbers(hands)[0] != convertToDescendingNumbers(hands)[1] || convertToDescendingNumbers(hands)[3] != convertToDescendingNumbers(hands)[4])) { // three same numbers, the other two are a pair - Full House
+            type = "FourOfAKind";
+        } else if (getDistinctNumbersSize(hands) != 3){ // four same numbers - Four Of A Kind
+            type = "FullHouse";
         }
         return type;
+    }
+
+    private boolean isStraight(String hands) {
+        return convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4 && (getDistinctNumbersSize(hands) == 5);
+    }
+
+    private boolean isStraightFlush(String hands) {
+        return (convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4) && (getDistinctSuitsSize(hands) == 1) && (getDistinctNumbersSize(hands) == 5);
     }
 
     private int getDistinctSuitsSize(String hands) {
