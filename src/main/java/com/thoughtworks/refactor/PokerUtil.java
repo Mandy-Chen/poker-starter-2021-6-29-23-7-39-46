@@ -194,4 +194,8 @@ public class PokerUtil {
     static int[] getDescendingRepeatNumbers(int[] blackDescendingHandsNumbers) {
         return noOrRepeatNumber(blackDescendingHandsNumbers, 0);
     }
+
+    static int[] getDescendingNoRepeatNumbers(int[] blackDescendingHandsNumbers) {
+        return noOrRepeatNumber(blackDescendingHandsNumbers, 1);
+    }
 }
