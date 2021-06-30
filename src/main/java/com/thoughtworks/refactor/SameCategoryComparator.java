@@ -82,4 +82,31 @@ public class SameCategoryComparator {
         }
         return winResult;
     }
+
+    static String compareTwoPair(Hands blackHandsObj, Hands whiteHandsObj) {
+        String winResult = "";
+        for (int i = 0; i < 2; i++) {
+            if (PokerUtil.getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] < PokerUtil.getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
+                String sig = PokerUtil.intNumber(PokerUtil.getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
+                winResult = "white wins - high card:" + sig;
+                break;
+            } else if (PokerUtil.getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] > PokerUtil.getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
+                String sig = PokerUtil.intNumber(PokerUtil.getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
+                winResult = "black wins - high card:" + sig;
+                break;
+            }
+        }
+        if (winResult == "") {
+            if (PokerUtil.getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < PokerUtil.getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
+                String sig = PokerUtil.intNumber(PokerUtil.getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
+                winResult = "white wins - high card:" + sig;
+            } else if (PokerUtil.getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] > PokerUtil.getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
+                String sig = PokerUtil.intNumber(PokerUtil.getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
+                winResult = "black wins - high card:" + sig;
+            } else {
+                winResult = "tie";
+            }
+        }
+        return winResult;
+    }
 }

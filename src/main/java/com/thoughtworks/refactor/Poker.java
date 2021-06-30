@@ -34,7 +34,7 @@ public class Poker {
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 5) { // Three Of A Kind
             winResult = SameCategoryComparator.compareThreeOfAKind(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 6) { // Two Pair
-            winResult = compareTwoPair(blackHandsObj, whiteHandsObj);
+            winResult = SameCategoryComparator.compareTwoPair(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 7) { // One Pair
             winResult = compareOnePair(blackHandsObj, whiteHandsObj);
         } else { // High Card
@@ -71,12 +71,12 @@ public class Poker {
             winResult = "black wins - high card:" + sig;
         } else {
             for (int i = 0; i < 3; i++) {
-                if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] < getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                    String sig = PokerUtil.intNumber(getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
+                if (PokerUtil.getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] < PokerUtil.getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
+                    String sig = PokerUtil.intNumber(PokerUtil.getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
                     winResult = "white wins - high card:" + sig;
                     break;
-                } else if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] > getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                    String sig = PokerUtil.intNumber(getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
+                } else if (PokerUtil.getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] > PokerUtil.getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
+                    String sig = PokerUtil.intNumber(PokerUtil.getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
                     winResult = "black wins - high card:" + sig;
                     break;
                 } else {
@@ -85,37 +85,6 @@ public class Poker {
             }
         }
         return winResult;
-    }
-
-    private String compareTwoPair( Hands blackHandsObj, Hands whiteHandsObj) {
-        String winResult = "";
-        for (int i = 0; i < 2; i++) {
-            if (PokerUtil.getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] < PokerUtil.getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                String sig = PokerUtil.intNumber(PokerUtil.getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]);
-                winResult = "white wins - high card:" + sig;
-                break;
-            } else if (PokerUtil.getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i] > PokerUtil.getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[i]) {
-                String sig = PokerUtil.intNumber(PokerUtil.getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[i]);
-                winResult = "black wins - high card:" + sig;
-                break;
-            }
-        }
-        if (winResult == "") {
-            if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-                String sig = PokerUtil.intNumber(getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
-                winResult = "white wins - high card:" + sig;
-            } else if (getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] > getDescendingNoRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-                String sig = PokerUtil.intNumber(getDescendingNoRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
-                winResult = "black wins - high card:" + sig;
-            } else {
-                winResult = "tie";
-            }
-        }
-        return winResult;
-    }
-
-    private int[] getDescendingNoRepeatNumbers(int[] blackDescendingHandsNumbers) {
-        return PokerUtil.noOrRepeatNumber(blackDescendingHandsNumbers, 1);
     }
 
 }
