@@ -70,4 +70,16 @@ public class SameCategoryComparator {
         }
         return winResult;
     }
+
+    static String compareThreeOfAKind(Hands blackHandsObj, Hands whiteHandsObj) {
+        String winResult;
+        if (PokerUtil.getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < PokerUtil.getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
+            String sig = PokerUtil.intNumber(PokerUtil.getDescendingRepeatNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
+            winResult = "white wins - high card:" + sig;
+        } else {
+            String sig = PokerUtil.intNumber(PokerUtil.getDescendingRepeatNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
+            winResult = "black wins - high card:" + sig;
+        }
+        return winResult;
+    }
 }
