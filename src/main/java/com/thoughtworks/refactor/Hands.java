@@ -18,4 +18,8 @@ public class Hands {
     int[] getDescendingHandsNumbers() {
         return PokerUtil.getDescendingHandsNumbers(this);
     }
+
+    int[] getDescendingRepeatNumbers() {
+        return PokerUtil.getDescendingRepeatNumbers(getDescendingHandsNumbers());
+    }
 }
