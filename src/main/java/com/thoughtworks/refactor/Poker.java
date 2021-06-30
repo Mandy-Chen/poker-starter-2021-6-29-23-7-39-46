@@ -4,13 +4,13 @@ import java.util.*;
 
 public class Poker {
 
-    public static final String[] CARD_TYPES = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
+    public static final String[] CATEGORYS = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
 
     public String compareResult(String blackCard, String whiteCard) {
         String winResult = "";
         String blackCardType = judgeType(blackCard);
         String whiteCardType = judgeType(whiteCard);
-        String[] cardTypes = CARD_TYPES;
+        String[] cardTypes = CATEGORYS;
         int[] blackCardDescendingNumbers = convertToDescendingNumbers(blackCard);
         int[] whiteCardDescendingNumbers = convertToDescendingNumbers(whiteCard);
         int blackCardTypeIndex = judgeCardTypeIndex(blackCardType);
