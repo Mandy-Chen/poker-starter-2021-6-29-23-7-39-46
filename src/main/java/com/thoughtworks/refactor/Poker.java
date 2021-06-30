@@ -267,10 +267,10 @@ public class Poker {
             type = "Straight";
         } else if (isFlush(hands)) { // same color - Flush
             type = "Flush";
-        } else if (getDistinctNumbersSize(hands) == 5){ // five non-adjacent numbers - High Card
+        } else if (isHighCard(hands)){ // five non-adjacent numbers - High Card
             type = "HighCard";
         }
-        else if (getDistinctNumbersSize(hands) == 4) { // two numbers are one pair, the other three are different - One Pair
+        else if (isOnePair(hands)) { // two numbers are one pair, the other three are different - One Pair
             type = "OnePair";
         } else if (((convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[2] == convertToDescendingNumbers(hands)[3]) || (convertToDescendingNumbers(hands)[1] == convertToDescendingNumbers(hands)[2] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]) || (convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]))&& getDistinctNumbersSize(hands) == 3) { // Two Pair
             type = "TwoPair";
@@ -284,12 +284,20 @@ public class Poker {
         return type;
     }
 
+    private boolean isOnePair(String hands) {
+        return getDistinctNumbersSize(hands) == 4;
+    }
+
+    private boolean isHighCard(String hands) {
+        return getDistinctNumbersSize(hands) == 5;
+    }
+
     private boolean isFlush(String hands) {
-        return getDistinctSuitsSize(hands) == 1 && getDistinctNumbersSize(hands) == 5;
+        return getDistinctSuitsSize(hands) == 1 && isHighCard(hands);
     }
 
     private boolean isStraight(String hands) {
-        return convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4 && (getDistinctNumbersSize(hands) == 5);
+        return convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4 && (isHighCard(hands));
     }
 
     private boolean isStraightFlush(String hands) {
