@@ -30,7 +30,7 @@ public class Poker {
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 2) { // Full House
             winResult = SameCategoryComparator.compareFullHouse(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 3) { // Flush
-            winResult = compareFlush(blackHandsObj, whiteHandsObj);
+            winResult = SameCategoryComparator.compareFlush(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 4) { // Straight
             winResult = compareStraight(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 5) { // Three Of A Kind
@@ -138,24 +138,6 @@ public class Poker {
             winResult = "black wins - high card:" + sig;
         } else {
             winResult = "tie";
-        }
-        return winResult;
-    }
-
-    private String compareFlush( Hands blackHandsObj, Hands whiteHandsObj) {
-         String winResult = "";
-        for (int i = 0; i < 5; i++) {
-            if (blackHandsObj.getDescendingHandsNumbers()[i] < whiteHandsObj.getDescendingHandsNumbers()[i]) {
-                String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[i]);
-                winResult = "white wins - high card:" + sig;
-                break;
-            } else if (blackHandsObj.getDescendingHandsNumbers()[i] > whiteHandsObj.getDescendingHandsNumbers()[i]) {
-                String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[i]);
-                winResult = "black wins - high card:" + sig;
-                break;
-            } else {
-                winResult = "tie";
-            }
         }
         return winResult;
     }
