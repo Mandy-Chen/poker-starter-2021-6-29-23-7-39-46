@@ -268,7 +268,7 @@ public class Poker {
         for (i = 0; i < 5; i++) {
             color[i] = strArray[i * 3 + 1];
         }
-        HashSet<Integer> distinctNumbers = getDistinctNumbers(convertToDescendingNumbers(hands));
+        HashSet<Integer> distinctNumbers = getDistinctNumbers(hands);
         HashSet<String> distinctSuits = new HashSet<String>();
         for (i = 0; i < 5; i++) {
             distinctSuits.add(color[i]);
@@ -299,6 +299,10 @@ public class Poker {
             }
         }
         return type;
+    }
+
+    private HashSet<Integer> getDistinctNumbers(String hands) {
+        return getDistinctNumbers(convertToDescendingNumbers(hands));
     }
 
     private HashSet<Integer> getDistinctNumbers(int[] numbers) {
