@@ -19,8 +19,8 @@ public class Poker {
         int[] whiteArraySort = arraySort(whiteCardDescendingNumbers);
         int[] blackRepeat = getRepeatNumbers(blackCardDescendingNumbers);
         int[] whiteRepeat = getRepeatNumbers(whiteCardDescendingNumbers);
-        int[] blackNoRepeat = noOrRepeatNumber(blackCardDescendingNumbers, 1);
-        int[] whiteNoRepeat = noOrRepeatNumber(whiteCardDescendingNumbers, 1);
+        int[] blackNoRepeat = getNoRepeatNumbers(blackCardDescendingNumbers);
+        int[] whiteNoRepeat = getNoRepeatNumbers(whiteCardDescendingNumbers);
         if (blackCardTypeIndex < whiteCardTypeIndex) {
             winResult = "black wins - " + cardTypes[blackCardTypeIndex];
         } else if (blackCardTypeIndex > whiteCardTypeIndex) {
@@ -146,6 +146,10 @@ public class Poker {
             }
         }
         return winResult;
+    }
+
+    private int[] getNoRepeatNumbers(int[] blackCardDescendingNumbers) {
+        return noOrRepeatNumber(blackCardDescendingNumbers, 1);
     }
 
     private int[] getRepeatNumbers(int[] blackCardDescendingNumbers) {
