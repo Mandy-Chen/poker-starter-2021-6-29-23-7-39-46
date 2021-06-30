@@ -276,12 +276,16 @@ public class Poker {
             type = "TwoPair";
         } else if (isThreeOfAKind(hands)){ // three same numbers, the other two are different - Three Of A Kind
             type = "ThreeOfAKind";
-        } else if (isFullHouse(hands) &&(convertToDescendingNumbers(hands)[0] != convertToDescendingNumbers(hands)[1] || convertToDescendingNumbers(hands)[3] != convertToDescendingNumbers(hands)[4])) { // three same numbers, the other two are a pair - Full House
+        } else if (isFourOfAKind(hands)) { // three same numbers, the other two are a pair - Full House
             type = "FourOfAKind";
         } else if (isFullHouse(hands)){ // four same numbers - Four Of A Kind
             type = "FullHouse";
         }
         return type;
+    }
+
+    private boolean isFourOfAKind(String hands) {
+        return isFullHouse(hands) && (convertToDescendingNumbers(hands)[0] != convertToDescendingNumbers(hands)[1] || convertToDescendingNumbers(hands)[3] != convertToDescendingNumbers(hands)[4]);
     }
 
     private boolean isFullHouse(String hands) {
