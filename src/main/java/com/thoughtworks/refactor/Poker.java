@@ -261,6 +261,47 @@ public class Poker {
     // judge the type of card
     private String judgeType(String hands) {
         String type = "";
+        final int distinctNumbersSize = getDistinctNumbersSize(hands);
+        final int distinctSuitsSize = getDistinctSuitsSize(hands);
+        final int[] numbers = convertToDescendingNumbers(hands);
+        if (distinctNumbersSize == 5) {
+
+            if ((numbers[0] - numbers[4] == 4) && (distinctSuitsSize == 1) && (distinctNumbersSize == 5)) { // five adjacent numbers with same color - Straight Flush
+                type = "StraightFlush";
+            } else if (numbers[0] - numbers[4] == 4 && (distinctNumbersSize == 5)) { // five adjacent numbers - Straight
+                type = "Straight";
+            } else if (distinctSuitsSize == 1) { // same color - Flush
+                type = "Flush";
+            } else { // five non-adjacent numbers - High Card
+                type = "HighCard";
+            }
+        } else if (distinctNumbersSize == 4) { // two numbers are one pair, the other three are different - One Pair
+            type = "OnePair";
+        } else if (distinctNumbersSize == 3) {
+            if ((numbers[0] == numbers[1] && numbers[2] == numbers[3]) || (numbers[1] == numbers[2] && numbers[3] == numbers[4]) || (numbers[0] == numbers[1] && numbers[3] == numbers[4])) { // Two Pair
+                type = "TwoPair";
+            } else { // three same numbers, the other two are different - Three Of A Kind
+                type = "ThreeOfAKind";
+            }
+        } else {
+            if (numbers[0] != numbers[1] || numbers[3] != numbers[4]) { // three same numbers, the other two are a pair - Full House
+                type = "FourOfAKind";
+            } else { // four same numbers - Four Of A Kind
+                type = "FullHouse";
+            }
+        }
+        return type;
+    }
+
+    private int getDistinctSuitsSize(String hands) {
+        return getDistinctSuits(hands).size();
+    }
+
+    private int getDistinctNumbersSize(String hands) {
+        return getDistinctNumbers(hands).size();
+    }
+
+    private HashSet<String> getDistinctSuits(String hands) {
         String[] strArray = hands.split("");
 
         int i;
@@ -268,37 +309,12 @@ public class Poker {
         for (i = 0; i < 5; i++) {
             color[i] = strArray[i * 3 + 1];
         }
-        HashSet<Integer> distinctNumbers = getDistinctNumbers(hands);
+
         HashSet<String> distinctSuits = new HashSet<String>();
         for (i = 0; i < 5; i++) {
             distinctSuits.add(color[i]);
         }
-        if (distinctNumbers.size() == 5) {
-            if ((convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4) && (distinctSuits.size() == 1) && (distinctNumbers.size() == 5)) { // five adjacent numbers with same color - Straight Flush
-                type = "StraightFlush";
-            } else if (convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4 && (distinctNumbers.size() == 5)) { // five adjacent numbers - Straight
-                type = "Straight";
-            } else if (distinctSuits.size() == 1) { // same color - Flush
-                type = "Flush";
-            } else { // five non-adjacent numbers - High Card
-                type = "HighCard";
-            }
-        } else if (distinctNumbers.size() == 4) { // two numbers are one pair, the other three are different - One Pair
-            type = "OnePair";
-        } else if (distinctNumbers.size() == 3) {
-            if ((convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[2] == convertToDescendingNumbers(hands)[3]) || (convertToDescendingNumbers(hands)[1] == convertToDescendingNumbers(hands)[2] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]) || (convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4])) { // Two Pair
-                type = "TwoPair";
-            } else { // three same numbers, the other two are different - Three Of A Kind
-                type = "ThreeOfAKind";
-            }
-        } else {
-            if (convertToDescendingNumbers(hands)[0] != convertToDescendingNumbers(hands)[1] || convertToDescendingNumbers(hands)[3] != convertToDescendingNumbers(hands)[4]) { // three same numbers, the other two are a pair - Full House
-                type = "FourOfAKind";
-            } else { // four same numbers - Four Of A Kind
-                type = "FullHouse";
-            }
-        }
-        return type;
+        return distinctSuits;
     }
 
     private HashSet<Integer> getDistinctNumbers(String hands) {
