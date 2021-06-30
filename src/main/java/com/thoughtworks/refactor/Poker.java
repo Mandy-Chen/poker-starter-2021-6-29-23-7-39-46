@@ -11,8 +11,8 @@ public class Poker {
         String blackCardType = judgeType(blackCard);
         String whiteCardType = judgeType(whiteCard);
         String[] cardTypes = CARD_TYPES;
-        int[] blackNumber = strNumber(blackCard);
-        int[] whiteNumber = strNumber(whiteCard);
+        int[] blackNumber = sortedNumbers(blackCard);
+        int[] whiteNumber = sortedNumbers(whiteCard);
         int blackIndex = judgeIndex(blackCardType);
         int whiteIndex = judgeIndex(whiteCardType);
         int[] blackArraySort = arraySort(blackNumber);
@@ -254,7 +254,7 @@ public class Poker {
     private String judgeType(String str) {
         String type = "";
         String[] strArray = str.split("");
-        int[] number = strNumber(str);
+        int[] number = sortedNumbers(str);
         int i;
         String[] color = new String[5];
         for (i = 0; i < 5; i++) {
@@ -297,7 +297,7 @@ public class Poker {
     }
 
     // Convert to numbers and sort them from largest to smallest
-    private int[] strNumber(String str) {
+    private int[] sortedNumbers(String str) {
         int[] number = new int[5];
         String[] strArray = str.split("");
         int i;
