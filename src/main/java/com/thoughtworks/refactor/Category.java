@@ -11,7 +11,7 @@ public class Category {
         return strType;
     }
 
-    int judgeHandsCategoryRanking() {
+    int getRanking() {
         int index = -1;
         String[] type = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
         for (int i = 0; i < 9; i++) {

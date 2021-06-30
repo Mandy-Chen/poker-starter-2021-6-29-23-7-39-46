@@ -11,7 +11,7 @@ public class Poker {
         final Hands blackHandsObj = new Hands(blackHands);
         int[] blackDescendingHandsNumbers = blackHandsObj.getDescendingHandsNumbers();
         final Category blackCategory = blackHandsObj.getCategory();
-        int blackHandsCategoryRanking = blackCategory.judgeHandsCategoryRanking();
+        int blackHandsCategoryRanking = blackCategory.getRanking();
         int[] blackRepeatNumbers = getDescendingRepeatNumbers(blackDescendingHandsNumbers);
         int[] blackDistinctDescendingHandsNumbers = getDistinctDescendingHandsNumbers(blackDescendingHandsNumbers);
         int[] blackNoRepeatNumbers = getDescendingNoRepeatNumbers(blackDescendingHandsNumbers);
@@ -19,7 +19,7 @@ public class Poker {
         final Hands whiteHandsObj = new Hands(whiteHands);
         int[] whiteDescendingHandsNumbers = whiteHandsObj.getDescendingHandsNumbers();
         final Category whiteCategory = whiteHandsObj.getCategory();
-        int whiteHandsCategoryRanking = whiteCategory.judgeHandsCategoryRanking();
+        int whiteHandsCategoryRanking = whiteCategory.getRanking();
         int[] whiteDistinctDescendingHandsNumbers = getDistinctDescendingHandsNumbers(whiteDescendingHandsNumbers);
         int[] whiteRepeatNumbers = getDescendingRepeatNumbers(whiteDescendingHandsNumbers);
         int[] whiteNoRepeatNumbers = getDescendingNoRepeatNumbers(whiteDescendingHandsNumbers);
