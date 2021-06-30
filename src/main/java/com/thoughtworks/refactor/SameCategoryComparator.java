@@ -7,23 +7,13 @@ public class SameCategoryComparator {
     public static SameCategoryComparator getInstance(int ranking) {
         if (ranking == 0) {
             return  new StraightFlushComparator();
+        }else if (ranking == 2){
+            return new FullHouseComparator();
         }
         return new SameCategoryComparator();
     }
 
     static String compareFourOfAKind(Hands blackHandsObj, Hands whiteHandsObj) {
-        String winResult;
-        if (PokerUtil.getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < PokerUtil.getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-            String sig = PokerUtil.intNumber(PokerUtil.getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
-            winResult = "white wins - high card:" + sig;
-        } else {
-            String sig = PokerUtil.intNumber(PokerUtil.getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
-            winResult = "black wins - high card:" + sig;
-        }
-        return winResult;
-    }
-
-    static String compareFullHouse(Hands blackHandsObj, Hands whiteHandsObj) {
         String winResult;
         if (PokerUtil.getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < PokerUtil.getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
             String sig = PokerUtil.intNumber(PokerUtil.getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
@@ -153,19 +143,9 @@ public class SameCategoryComparator {
     String compareSameCategory(Hands blackHandsObj, Hands whiteHandsObj) {
         String winResult;
         if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 0) { // Straight Flush
-            String winResult1;
-            if (blackHandsObj.getDescendingHandsNumbers()[0] < whiteHandsObj.getDescendingHandsNumbers()[0]) {
-                String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[0]);
-                winResult1 = "white wins - high card:" + sig;
-            } else if (blackHandsObj.getDescendingHandsNumbers()[0] > whiteHandsObj.getDescendingHandsNumbers()[0]) {
-                String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[0]);
-                winResult1 = "black wins - high card:" + sig;
-            } else {
-                winResult1 = "tie";
-            }
-            winResult = winResult1;
-        }  else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 2) { // Full House
-            winResult = compareFullHouse(blackHandsObj, whiteHandsObj);
+            winResult = compareStraightFlush(blackHandsObj, whiteHandsObj);
+        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 1) { // Four Of A Kind
+            winResult = compareFourOfAKind(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 3) { // Flush
             winResult = compareFlush(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 4) { // Straight
@@ -179,6 +159,22 @@ public class SameCategoryComparator {
         } else { // High Card
             winResult = compareHighCard(blackHandsObj, whiteHandsObj);
         }
+        return winResult;
+    }
+
+    private String compareStraightFlush(Hands blackHandsObj, Hands whiteHandsObj) {
+        String winResult;
+        String winResult1;
+        if (blackHandsObj.getDescendingHandsNumbers()[0] < whiteHandsObj.getDescendingHandsNumbers()[0]) {
+            String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[0]);
+            winResult1 = "white wins - high card:" + sig;
+        } else if (blackHandsObj.getDescendingHandsNumbers()[0] > whiteHandsObj.getDescendingHandsNumbers()[0]) {
+            String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[0]);
+            winResult1 = "black wins - high card:" + sig;
+        } else {
+            winResult1 = "tie";
+        }
+        winResult = winResult1;
         return winResult;
     }
 }
