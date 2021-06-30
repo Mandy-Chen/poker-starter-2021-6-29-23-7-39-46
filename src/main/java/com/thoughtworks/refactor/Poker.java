@@ -6,13 +6,13 @@ public class Poker {
 
     public static final String[] CATEGORYS = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
 
-    public String compareResult(String blackCard, String whiteCard) {
+    public String compareResult(String blackHands, String whiteHands) {
         String winResult = "";
-        String blackCardType = judgeType(blackCard);
-        String whiteCardType = judgeType(whiteCard);
+        String blackCardType = judgeType(blackHands);
+        String whiteCardType = judgeType(whiteHands);
         String[] cardTypes = CATEGORYS;
-        int[] blackCardDescendingNumbers = convertToDescendingNumbers(blackCard);
-        int[] whiteCardDescendingNumbers = convertToDescendingNumbers(whiteCard);
+        int[] blackCardDescendingNumbers = convertToDescendingNumbers(blackHands);
+        int[] whiteCardDescendingNumbers = convertToDescendingNumbers(whiteHands);
         int blackCardTypeIndex = judgeCardTypeIndex(blackCardType);
         int whiteCardTypeIndex = judgeCardTypeIndex(whiteCardType);
         int[] blackArraySort = arraySort(blackCardDescendingNumbers);
