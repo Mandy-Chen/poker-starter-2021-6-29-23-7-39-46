@@ -272,7 +272,7 @@ public class Poker {
         }
         else if (isOnePair(hands)) { // two numbers are one pair, the other three are different - One Pair
             type = "OnePair";
-        } else if (((convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[2] == convertToDescendingNumbers(hands)[3]) || (convertToDescendingNumbers(hands)[1] == convertToDescendingNumbers(hands)[2] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]) || (convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]))&& getDistinctNumbersSize(hands) == 3) { // Two Pair
+        } else if (isTwoPair(hands)) { // Two Pair
             type = "TwoPair";
         } else if (getDistinctNumbersSize(hands) == 3){ // three same numbers, the other two are different - Three Of A Kind
             type = "ThreeOfAKind";
@@ -282,6 +282,10 @@ public class Poker {
             type = "FullHouse";
         }
         return type;
+    }
+
+    private boolean isTwoPair(String hands) {
+        return ((convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[2] == convertToDescendingNumbers(hands)[3]) || (convertToDescendingNumbers(hands)[1] == convertToDescendingNumbers(hands)[2] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]) || (convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4])) && getDistinctNumbersSize(hands) == 3;
     }
 
     private boolean isOnePair(String hands) {
