@@ -153,4 +153,28 @@ public class SameCategoryComparator {
         }
         return winResult;
     }
+
+    static String compareSameCategory(Hands blackHandsObj, Hands whiteHandsObj) {
+        String winResult;
+        if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 0) { // Straight Flush
+            winResult = compareStraightFlush(blackHandsObj, whiteHandsObj);
+        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 1) { // Four Of A Kind
+            winResult = compareFourOfAKind(blackHandsObj, whiteHandsObj);
+        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 2) { // Full House
+            winResult = compareFullHouse(blackHandsObj, whiteHandsObj);
+        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 3) { // Flush
+            winResult = compareFlush(blackHandsObj, whiteHandsObj);
+        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 4) { // Straight
+            winResult = compareStraight(blackHandsObj, whiteHandsObj);
+        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 5) { // Three Of A Kind
+            winResult = compareThreeOfAKind(blackHandsObj, whiteHandsObj);
+        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 6) { // Two Pair
+            winResult = compareTwoPair(blackHandsObj, whiteHandsObj);
+        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 7) { // One Pair
+            winResult = compareOnePair(blackHandsObj, whiteHandsObj);
+        } else { // High Card
+            winResult = compareHighCard(blackHandsObj, whiteHandsObj);
+        }
+        return winResult;
+    }
 }
