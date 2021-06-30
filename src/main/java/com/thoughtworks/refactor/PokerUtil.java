@@ -5,9 +5,9 @@ import java.util.HashSet;
 
 public class PokerUtil {
     // Convert to numbers and sort them from largest to smallest
-    static int[] getDescendingHandsNumbers(String str) {
+    static int[] getDescendingHandsNumbers(Hands hands) {
         int[] number = new int[5];
-        String[] strArray = str.split("");
+        String[] strArray = hands.getHands().split("");
         int i;
         for (i = 0; i < 5; i++) {
             String c = strArray[i * 3];
@@ -42,23 +42,23 @@ public class PokerUtil {
     }
 
     // judge the type of card
-    static String judgeHandCategory(String hands) {
+    static String judgeHandCategory(Hands hands) {
         String type = "";
-        if (isStraightFlush(hands)) {
+        if (isStraightFlush(hands.getHands())) {
             type = "StraightFlush";
-        } else if (isStraight(hands)) {
+        } else if (isStraight(hands.getHands())) {
             type = "Straight";
-        } else if (isFlush(hands)) {
+        } else if (isFlush(hands.getHands())) {
             type = "Flush";
-        } else if (isHighCard(hands)) {
+        } else if (isHighCard(hands.getHands())) {
             type = "HighCard";
-        } else if (isOnePair(hands)) {
+        } else if (isOnePair(hands.getHands())) {
             type = "OnePair";
-        } else if (isTwoPair(hands)) {
+        } else if (isTwoPair(hands.getHands())) {
             type = "TwoPair";
-        } else if (isThreeOfAKind(hands)) {
+        } else if (isThreeOfAKind(hands.getHands())) {
             type = "ThreeOfAKind";
-        } else if (isFourOfAKind(hands)) {
+        } else if (isFourOfAKind(hands.getHands())) {
             type = "FourOfAKind";
         } else {
             type = "FullHouse";
@@ -68,7 +68,7 @@ public class PokerUtil {
     }
 
     private static boolean isFourOfAKind(String hands) {
-        final int[] descendingCardNumbers = getDescendingHandsNumbers(hands);
+        final int[] descendingCardNumbers = getDescendingHandsNumbers(new Hands(hands));
         return descendingCardNumbers[0] != descendingCardNumbers[1] || descendingCardNumbers[3] != descendingCardNumbers[4];
     }
 
@@ -78,7 +78,7 @@ public class PokerUtil {
 
     private static boolean isTwoPair(String hands) {
         final int distinctNumbersCount = countDistinctNumbers(hands);
-        final int[] descendingCardNumbers = getDescendingHandsNumbers(hands);
+        final int[] descendingCardNumbers = getDescendingHandsNumbers(new Hands(hands));
         return distinctNumbersCount == 3 && ((descendingCardNumbers[0] == descendingCardNumbers[1] && descendingCardNumbers[2] == descendingCardNumbers[3]) || (descendingCardNumbers[1] == descendingCardNumbers[2] && descendingCardNumbers[3] == descendingCardNumbers[4]) || (descendingCardNumbers[0] == descendingCardNumbers[1] && descendingCardNumbers[3] == descendingCardNumbers[4]) && distinctNumbersCount == 3);
     }
 
@@ -95,12 +95,12 @@ public class PokerUtil {
     }
 
     private static boolean isStraight(String hands) {
-        final int[] descendingCardNumbers = getDescendingHandsNumbers(hands);
+        final int[] descendingCardNumbers = getDescendingHandsNumbers(new Hands(hands));
         return descendingCardNumbers[0] - descendingCardNumbers[4] == 4 && (countDistinctNumbers(hands) == 5);
     }
 
     private static boolean isStraightFlush(String hands) {
-        final int[] descendingCardNumbers = getDescendingHandsNumbers(hands);
+        final int[] descendingCardNumbers = getDescendingHandsNumbers(new Hands(hands));
         return (descendingCardNumbers[0] - descendingCardNumbers[4] == 4) && (countSuits(hands) == 1) && (countDistinctNumbers(hands) == 5);
     }
 
@@ -112,7 +112,7 @@ public class PokerUtil {
         int i;
         HashSet<Integer> distinctNumbers = new HashSet<Integer>();
         for (i = 0; i < 5; i++) {
-            distinctNumbers.add(getDescendingHandsNumbers(hands)[i]);
+            distinctNumbers.add(getDescendingHandsNumbers(new Hands(hands))[i]);
         }
         return distinctNumbers.size();
     }
