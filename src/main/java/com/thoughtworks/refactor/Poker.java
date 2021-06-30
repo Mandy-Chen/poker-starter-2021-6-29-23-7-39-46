@@ -19,8 +19,8 @@ public class Poker {
         int[] whiteArraySort = arraySort(whiteCardDescendingNumbers);
         int[] blackDescendingRepeatNumbers = getRepeatNumbers(blackCardDescendingNumbers);
         int[] whiteDescendingRepeatNumbers = getRepeatNumbers(whiteCardDescendingNumbers);
-        int[] blackNoRepeat = getNoRepeatNumbers(blackCardDescendingNumbers);
-        int[] whiteNoRepeat = getNoRepeatNumbers(whiteCardDescendingNumbers);
+        int[] blackDescendingNoRepeatNumbers = getNoRepeatNumbers(blackCardDescendingNumbers);
+        int[] whiteDescendingNoRepeatNumbers = getNoRepeatNumbers(whiteCardDescendingNumbers);
         if (blackCardTypeIndex < whiteCardTypeIndex) {
             winResult = "black wins - " + cardTypes[blackCardTypeIndex];
         } else if (blackCardTypeIndex > whiteCardTypeIndex) {
@@ -97,11 +97,11 @@ public class Poker {
                     }
                 }
                 if (winResult == "") {
-                    if (blackNoRepeat[0] < whiteNoRepeat[0]) {
-                        String sig = intNumber(whiteNoRepeat[0]);
+                    if (blackDescendingNoRepeatNumbers[0] < whiteDescendingNoRepeatNumbers[0]) {
+                        String sig = intNumber(whiteDescendingNoRepeatNumbers[0]);
                         winResult = "white wins - high card:" + sig;
-                    } else if (blackNoRepeat[0] > whiteNoRepeat[0]) {
-                        String sig = intNumber(blackNoRepeat[0]);
+                    } else if (blackDescendingNoRepeatNumbers[0] > whiteDescendingNoRepeatNumbers[0]) {
+                        String sig = intNumber(blackDescendingNoRepeatNumbers[0]);
                         winResult = "black wins - high card:" + sig;
                     } else {
                         winResult = "tie";
@@ -116,12 +116,12 @@ public class Poker {
                     winResult = "black wins - high card:" + sig;
                 } else {
                     for (int i = 0; i < 3; i++) {
-                        if (blackNoRepeat[i] < whiteNoRepeat[i]) {
-                            String sig = intNumber(whiteNoRepeat[i]);
+                        if (blackDescendingNoRepeatNumbers[i] < whiteDescendingNoRepeatNumbers[i]) {
+                            String sig = intNumber(whiteDescendingNoRepeatNumbers[i]);
                             winResult = "white wins - high card:" + sig;
                             break;
-                        } else if (blackNoRepeat[i] > whiteNoRepeat[i]) {
-                            String sig = intNumber(blackNoRepeat[i]);
+                        } else if (blackDescendingNoRepeatNumbers[i] > whiteDescendingNoRepeatNumbers[i]) {
+                            String sig = intNumber(blackDescendingNoRepeatNumbers[i]);
                             winResult = "black wins - high card:" + sig;
                             break;
                         } else {
@@ -259,43 +259,43 @@ public class Poker {
     }
 
     // judge the type of card
-    private String judgeType(String card) {
+    private String judgeType(String hands) {
         String type = "";
-        String[] strArray = card.split("");
-        int[] number = convertToDescendingNumbers(card);
+        String[] strArray = hands.split("");
+        int[] numbers = convertToDescendingNumbers(hands);
         int i;
         String[] color = new String[5];
         for (i = 0; i < 5; i++) {
             color[i] = strArray[i * 3 + 1];
         }
-        HashSet<Integer> hashSetNumber = new HashSet<Integer>();
+        HashSet<Integer> distinctNumbers = new HashSet<Integer>();
         for (i = 0; i < 5; i++) {
-            hashSetNumber.add(number[i]);
+            distinctNumbers.add(numbers[i]);
         }
-        HashSet<String> hashSetType = new HashSet<String>();
+        HashSet<String> distinctSuits = new HashSet<String>();
         for (i = 0; i < 5; i++) {
-            hashSetType.add(color[i]);
+            distinctSuits.add(color[i]);
         }
-        if (hashSetNumber.size() == 5) {
-            if ((number[0] - number[4] == 4) && (hashSetType.size() == 1) && (hashSetNumber.size() == 5)) { // five adjacent numbers with same color - Straight Flush
+        if (distinctNumbers.size() == 5) {
+            if ((numbers[0] - numbers[4] == 4) && (distinctSuits.size() == 1) && (distinctNumbers.size() == 5)) { // five adjacent numbers with same color - Straight Flush
                 type = "StraightFlush";
-            } else if (number[0] - number[4] == 4 && (hashSetNumber.size() == 5)) { // five adjacent numbers - Straight
+            } else if (numbers[0] - numbers[4] == 4 && (distinctNumbers.size() == 5)) { // five adjacent numbers - Straight
                 type = "Straight";
-            } else if (hashSetType.size() == 1) { // same color - Flush
+            } else if (distinctSuits.size() == 1) { // same color - Flush
                 type = "Flush";
             } else { // five non-adjacent numbers - High Card
                 type = "HighCard";
             }
-        } else if (hashSetNumber.size() == 4) { // two numbers are one pair, the other three are different - One Pair
+        } else if (distinctNumbers.size() == 4) { // two numbers are one pair, the other three are different - One Pair
             type = "OnePair";
-        } else if (hashSetNumber.size() == 3) {
-            if ((number[0] == number[1] && number[2] == number[3]) || (number[1] == number[2] && number[3] == number[4]) || (number[0] == number[1] && number[3] == number[4])) { // Two Pair
+        } else if (distinctNumbers.size() == 3) {
+            if ((numbers[0] == numbers[1] && numbers[2] == numbers[3]) || (numbers[1] == numbers[2] && numbers[3] == numbers[4]) || (numbers[0] == numbers[1] && numbers[3] == numbers[4])) { // Two Pair
                 type = "TwoPair";
             } else { // three same numbers, the other two are different - Three Of A Kind
                 type = "ThreeOfAKind";
             }
         } else {
-            if (number[0] != number[1] || number[3] != number[4]) { // three same numbers, the other two are a pair - Full House
+            if (numbers[0] != numbers[1] || numbers[3] != numbers[4]) { // three same numbers, the other two are a pair - Full House
                 type = "FourOfAKind";
             } else { // four same numbers - Four Of A Kind
                 type = "FullHouse";
