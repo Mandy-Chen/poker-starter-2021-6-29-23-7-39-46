@@ -21,13 +21,7 @@ public class Poker {
             } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 1) { // Four Of A Kind
                 winResult = compareFourOfAKind(blackHandsObj, whiteHandsObj);
             } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 2) { // Full House
-                if (getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
-                    String sig = intNumber(getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
-                    winResult = "white wins - high card:" + sig;
-                } else {
-                    String sig = intNumber(getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
-                    winResult = "black wins - high card:" + sig;
-                }
+                winResult = compareFullHouse(blackHandsObj, whiteHandsObj);
             } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 3) { // Flush
                 for (int i = 0; i < 5; i++) {
                     if (blackHandsObj.getDescendingHandsNumbers()[i] < whiteHandsObj.getDescendingHandsNumbers()[i]) {
@@ -120,6 +114,18 @@ public class Poker {
                     }
                 }
             }
+        }
+        return winResult;
+    }
+
+    private String compareFullHouse(Hands blackHandsObj, Hands whiteHandsObj) {
+        String winResult;
+        if (getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0] < getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]) {
+            String sig = intNumber(getDistinctDescendingHandsNumbers(whiteHandsObj.getDescendingHandsNumbers())[0]);
+            winResult = "white wins - high card:" + sig;
+        } else {
+            String sig = intNumber(getDistinctDescendingHandsNumbers(blackHandsObj.getDescendingHandsNumbers())[0]);
+            winResult = "black wins - high card:" + sig;
         }
         return winResult;
     }
