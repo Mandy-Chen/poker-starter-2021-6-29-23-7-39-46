@@ -274,7 +274,7 @@ public class Poker {
             type = "OnePair";
         } else if (isTwoPair(hands)) { // Two Pair
             type = "TwoPair";
-        } else if (getDistinctNumbersSize(hands) == 3){ // three same numbers, the other two are different - Three Of A Kind
+        } else if (isThreeOfAKind(hands)){ // three same numbers, the other two are different - Three Of A Kind
             type = "ThreeOfAKind";
         } else if (getDistinctNumbersSize(hands) != 3&&(convertToDescendingNumbers(hands)[0] != convertToDescendingNumbers(hands)[1] || convertToDescendingNumbers(hands)[3] != convertToDescendingNumbers(hands)[4])) { // three same numbers, the other two are a pair - Full House
             type = "FourOfAKind";
@@ -284,8 +284,12 @@ public class Poker {
         return type;
     }
 
+    private boolean isThreeOfAKind(String hands) {
+        return getDistinctNumbersSize(hands) == 3;
+    }
+
     private boolean isTwoPair(String hands) {
-        return ((convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[2] == convertToDescendingNumbers(hands)[3]) || (convertToDescendingNumbers(hands)[1] == convertToDescendingNumbers(hands)[2] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]) || (convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4])) && getDistinctNumbersSize(hands) == 3;
+        return ((convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[2] == convertToDescendingNumbers(hands)[3]) || (convertToDescendingNumbers(hands)[1] == convertToDescendingNumbers(hands)[2] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]) || (convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4])) && isThreeOfAKind(hands);
     }
 
     private boolean isOnePair(String hands) {
