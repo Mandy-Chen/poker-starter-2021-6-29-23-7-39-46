@@ -268,16 +268,15 @@ public class Poker {
         for (i = 0; i < 5; i++) {
             color[i] = strArray[i * 3 + 1];
         }
-        int[] numbers = convertToDescendingNumbers(hands);
-        HashSet<Integer> distinctNumbers = getDistinctNumbers(numbers);
+        HashSet<Integer> distinctNumbers = getDistinctNumbers(convertToDescendingNumbers(hands));
         HashSet<String> distinctSuits = new HashSet<String>();
         for (i = 0; i < 5; i++) {
             distinctSuits.add(color[i]);
         }
         if (distinctNumbers.size() == 5) {
-            if ((numbers[0] - numbers[4] == 4) && (distinctSuits.size() == 1) && (distinctNumbers.size() == 5)) { // five adjacent numbers with same color - Straight Flush
+            if ((convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4) && (distinctSuits.size() == 1) && (distinctNumbers.size() == 5)) { // five adjacent numbers with same color - Straight Flush
                 type = "StraightFlush";
-            } else if (numbers[0] - numbers[4] == 4 && (distinctNumbers.size() == 5)) { // five adjacent numbers - Straight
+            } else if (convertToDescendingNumbers(hands)[0] - convertToDescendingNumbers(hands)[4] == 4 && (distinctNumbers.size() == 5)) { // five adjacent numbers - Straight
                 type = "Straight";
             } else if (distinctSuits.size() == 1) { // same color - Flush
                 type = "Flush";
@@ -287,13 +286,13 @@ public class Poker {
         } else if (distinctNumbers.size() == 4) { // two numbers are one pair, the other three are different - One Pair
             type = "OnePair";
         } else if (distinctNumbers.size() == 3) {
-            if ((numbers[0] == numbers[1] && numbers[2] == numbers[3]) || (numbers[1] == numbers[2] && numbers[3] == numbers[4]) || (numbers[0] == numbers[1] && numbers[3] == numbers[4])) { // Two Pair
+            if ((convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[2] == convertToDescendingNumbers(hands)[3]) || (convertToDescendingNumbers(hands)[1] == convertToDescendingNumbers(hands)[2] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4]) || (convertToDescendingNumbers(hands)[0] == convertToDescendingNumbers(hands)[1] && convertToDescendingNumbers(hands)[3] == convertToDescendingNumbers(hands)[4])) { // Two Pair
                 type = "TwoPair";
             } else { // three same numbers, the other two are different - Three Of A Kind
                 type = "ThreeOfAKind";
             }
         } else {
-            if (numbers[0] != numbers[1] || numbers[3] != numbers[4]) { // three same numbers, the other two are a pair - Full House
+            if (convertToDescendingNumbers(hands)[0] != convertToDescendingNumbers(hands)[1] || convertToDescendingNumbers(hands)[3] != convertToDescendingNumbers(hands)[4]) { // three same numbers, the other two are a pair - Full House
                 type = "FourOfAKind";
             } else { // four same numbers - Four Of A Kind
                 type = "FullHouse";
