@@ -10,4 +10,15 @@ public class Category {
     public String getStrType() {
         return strType;
     }
+
+    int judgeHandsCategoryRanking() {
+        int index = -1;
+        String[] type = {"StraightFlush", "FourOfAKind", "FullHouse", "Flush", "Straight", "ThreeOfAKind", "TwoPair", "OnePair", "HighCard"};
+        for (int i = 0; i < 9; i++) {
+            if (type[i].equals(getStrType())) {
+                index = i;
+            }
+        }
+        return index;
+    }
 }

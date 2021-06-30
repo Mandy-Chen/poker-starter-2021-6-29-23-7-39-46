@@ -10,4 +10,12 @@ public class Hands {
     public String getHands() {
         return hands;
     }
+
+    Category getCategory() {
+        return new Category(PokerUtil.judgeHandCategory(this));
+    }
+
+    int[] getDescendingHandsNumbers() {
+        return PokerUtil.getDescendingHandsNumbers(this);
+    }
 }
