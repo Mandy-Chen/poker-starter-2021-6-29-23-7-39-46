@@ -38,25 +38,7 @@ public class Poker {
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 7) { // One Pair
             winResult = SameCategoryComparator.compareOnePair(blackHandsObj, whiteHandsObj);
         } else { // High Card
-            winResult = compareHighCard(blackHandsObj, whiteHandsObj);
-        }
-        return winResult;
-    }
-
-    private String compareHighCard( Hands blackHandsObj, Hands whiteHandsObj) {
-        String winResult="";
-        for (int i = 0; i < 5; i++) {
-            if (blackHandsObj.getDescendingHandsNumbers()[i] < whiteHandsObj.getDescendingHandsNumbers()[i]) {
-                String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[i]);
-                winResult = "white wins - high card:" + sig;
-                break;
-            } else if (blackHandsObj.getDescendingHandsNumbers()[i] > whiteHandsObj.getDescendingHandsNumbers()[i]) {
-                String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[i]);
-                winResult = "black wins - high card:" + sig;
-                break;
-            } else {
-                winResult = "tie";
-            }
+            winResult = SameCategoryComparator.compareHighCard(blackHandsObj, whiteHandsObj);
         }
         return winResult;
     }

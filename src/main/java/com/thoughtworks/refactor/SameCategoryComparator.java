@@ -135,4 +135,22 @@ public class SameCategoryComparator {
         }
         return winResult;
     }
+
+    static String compareHighCard(Hands blackHandsObj, Hands whiteHandsObj) {
+        String winResult="";
+        for (int i = 0; i < 5; i++) {
+            if (blackHandsObj.getDescendingHandsNumbers()[i] < whiteHandsObj.getDescendingHandsNumbers()[i]) {
+                String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[i]);
+                winResult = "white wins - high card:" + sig;
+                break;
+            } else if (blackHandsObj.getDescendingHandsNumbers()[i] > whiteHandsObj.getDescendingHandsNumbers()[i]) {
+                String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[i]);
+                winResult = "black wins - high card:" + sig;
+                break;
+            } else {
+                winResult = "tie";
+            }
+        }
+        return winResult;
+    }
 }
