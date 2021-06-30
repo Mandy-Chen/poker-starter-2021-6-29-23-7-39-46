@@ -262,16 +262,14 @@ public class Poker {
     private String judgeType(String hands) {
         String type = "";
         String[] strArray = hands.split("");
-        int[] numbers = convertToDescendingNumbers(hands);
+
         int i;
         String[] color = new String[5];
         for (i = 0; i < 5; i++) {
             color[i] = strArray[i * 3 + 1];
         }
-        HashSet<Integer> distinctNumbers = new HashSet<Integer>();
-        for (i = 0; i < 5; i++) {
-            distinctNumbers.add(numbers[i]);
-        }
+        int[] numbers = convertToDescendingNumbers(hands);
+        HashSet<Integer> distinctNumbers = getDistinctNumbers(numbers);
         HashSet<String> distinctSuits = new HashSet<String>();
         for (i = 0; i < 5; i++) {
             distinctSuits.add(color[i]);
@@ -302,6 +300,15 @@ public class Poker {
             }
         }
         return type;
+    }
+
+    private HashSet<Integer> getDistinctNumbers(int[] numbers) {
+        int i;
+        HashSet<Integer> distinctNumbers = new HashSet<Integer>();
+        for (i = 0; i < 5; i++) {
+            distinctNumbers.add(numbers[i]);
+        }
+        return distinctNumbers;
     }
 
     // Convert to numbers and sort them from largest to smallest
