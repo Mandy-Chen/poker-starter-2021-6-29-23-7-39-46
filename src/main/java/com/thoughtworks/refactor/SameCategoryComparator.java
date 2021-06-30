@@ -1,18 +1,14 @@
 package com.thoughtworks.refactor;
 
 public class SameCategoryComparator {
-    static String compareStraightFlush(Hands blackHandsObj, Hands whiteHandsObj) {
-        String winResult;
-        if (blackHandsObj.getDescendingHandsNumbers()[0] < whiteHandsObj.getDescendingHandsNumbers()[0]) {
-            String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[0]);
-            winResult = "white wins - high card:" + sig;
-        } else if (blackHandsObj.getDescendingHandsNumbers()[0] > whiteHandsObj.getDescendingHandsNumbers()[0]) {
-            String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[0]);
-            winResult = "black wins - high card:" + sig;
-        } else {
-            winResult = "tie";
+    public SameCategoryComparator() {
+    }
+
+    public static SameCategoryComparator getInstance(int ranking) {
+        if (ranking == 0) {
+            return  new StraightFlushComparator();
         }
-        return winResult;
+        return new SameCategoryComparator();
     }
 
     static String compareFourOfAKind(Hands blackHandsObj, Hands whiteHandsObj) {
@@ -154,13 +150,21 @@ public class SameCategoryComparator {
         return winResult;
     }
 
-    static String compareSameCategory(Hands blackHandsObj, Hands whiteHandsObj) {
+    String compareSameCategory(Hands blackHandsObj, Hands whiteHandsObj) {
         String winResult;
         if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 0) { // Straight Flush
-            winResult = compareStraightFlush(blackHandsObj, whiteHandsObj);
-        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 1) { // Four Of A Kind
-            winResult = compareFourOfAKind(blackHandsObj, whiteHandsObj);
-        } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 2) { // Full House
+            String winResult1;
+            if (blackHandsObj.getDescendingHandsNumbers()[0] < whiteHandsObj.getDescendingHandsNumbers()[0]) {
+                String sig = PokerUtil.intNumber(whiteHandsObj.getDescendingHandsNumbers()[0]);
+                winResult1 = "white wins - high card:" + sig;
+            } else if (blackHandsObj.getDescendingHandsNumbers()[0] > whiteHandsObj.getDescendingHandsNumbers()[0]) {
+                String sig = PokerUtil.intNumber(blackHandsObj.getDescendingHandsNumbers()[0]);
+                winResult1 = "black wins - high card:" + sig;
+            } else {
+                winResult1 = "tie";
+            }
+            winResult = winResult1;
+        }  else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 2) { // Full House
             winResult = compareFullHouse(blackHandsObj, whiteHandsObj);
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() == 3) { // Flush
             winResult = compareFlush(blackHandsObj, whiteHandsObj);

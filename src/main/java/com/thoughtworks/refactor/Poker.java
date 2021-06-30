@@ -14,7 +14,7 @@ public class Poker {
         } else if (blackHandsObj.getCategory().judgeHandsCategoryRanking() > whiteHandsObj.getCategory().judgeHandsCategoryRanking()) {
             winResult = "white wins - " + CATEGORIES[whiteHandsObj.getCategory().judgeHandsCategoryRanking()];
         } else {
-            winResult = SameCategoryComparator.compareSameCategory(blackHandsObj, whiteHandsObj);
+            winResult =  SameCategoryComparator.getInstance(blackHandsObj.getCategory().judgeHandsCategoryRanking()).compareSameCategory(blackHandsObj, whiteHandsObj);
         }
         return winResult;
     }
