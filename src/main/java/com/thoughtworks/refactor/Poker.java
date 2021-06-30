@@ -265,7 +265,7 @@ public class Poker {
             type = "StraightFlush";
         } else if (isStraight(hands)) { // five adjacent numbers - Straight
             type = "Straight";
-        } else if (getDistinctSuitsSize(hands) == 1 && getDistinctNumbersSize(hands) == 5) { // same color - Flush
+        } else if (isFlush(hands)) { // same color - Flush
             type = "Flush";
         } else if (getDistinctNumbersSize(hands) == 5){ // five non-adjacent numbers - High Card
             type = "HighCard";
@@ -282,6 +282,10 @@ public class Poker {
             type = "FullHouse";
         }
         return type;
+    }
+
+    private boolean isFlush(String hands) {
+        return getDistinctSuitsSize(hands) == 1 && getDistinctNumbersSize(hands) == 5;
     }
 
     private boolean isStraight(String hands) {
